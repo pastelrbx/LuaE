@@ -1,5 +1,6 @@
 # LuaE
-Don't use this unless you care more about speed of development than speed that the end-user experiences.
+Don't use this unless you care more about speed of development than speed that the end-user experiences.<br>
+*P.S. I know my coding looks and is rubbish. Please don't attack me for it.*
 
 ## Differences from Lua(u)
 
