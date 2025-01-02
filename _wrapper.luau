@@ -1,0 +1,1 @@
+local args={...}require("./LuaE"):Call(require(args[1]:gsub(".luau", ""):gsub(".lua", ""):gsub(".luae", "")).Source, table.unpack(args, 2))

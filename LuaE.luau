@@ -82,7 +82,9 @@ local LuaE = {
 	}
 }
 
-function LuaE.new(roblox: boolean?)
+if not loadstring then error("[LuaE] LuaE requires loadstring access, enable 'LoadStringEnabled' on ServerScriptService in Roblox, or use another Luau environment.") end
+
+function LuaE.new(roblox: boolean?) roblox = roblox or game
 	local self = {}
 	setmetatable(self, {__index = LuaE})
     if roblox then
@@ -99,7 +101,8 @@ function LuaE.new(roblox: boolean?)
             wrk = game:GetService("Workspace"),
             htsr = game:GetService("HttpService"),
             lplr = game:GetService("Players").LocalPlayer, -- for all my exploiters ig
-            gtsr = "game:GetService"
+            gtsr = "game:GetService",
+            dml = game
         }
         for _, v in pairs(self.Roblox) do
             table.insert(self.Expressions, v)
@@ -119,7 +122,7 @@ function LuaE:Compile(scr: string)
 		end
 	end
 
-    scr = "local LuaEenv = {...}" .. scr
+    scr = "local LuaEenv = {...}LuaEenv = LuaEenv[1]" .. scr -- [1] and setting twice(cant do x = y[1]) for some reason?????
 
 	local comp, prob = loadstring(scr)
 
