@@ -119,7 +119,7 @@ function LuaE:Compile(scr: string)
 		end
 	end
 
-    scr = "return function(LuaEenv)" .. scr .. " end"
+    scr = "local LuaEenv = {...}" .. scr
 
 	local comp, prob = loadstring(scr)
 
@@ -128,7 +128,7 @@ function LuaE:Compile(scr: string)
 		error(prob)
 	end
 
-    self.LatestCompile = comp
+    self.LatestChunk = comp
     return self
 end
 
@@ -141,8 +141,7 @@ function LuaE:Run(...)
         envVars["env"][key] = val
     end
 
-    local chunk = self.LatestCompile()
-    local ok, prob = pcall(chunk, envVars)
+    local ok, prob = pcall(self.LatestChunk, envVars)
 
     if not ok then
         error(prob)
